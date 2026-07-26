@@ -380,7 +380,7 @@ p {
 
 .preview-body img {
     max-width: 100%;
-    max-height: 280px;
+    max-height: 32%;
     object-fit: contain;
     border-radius: 2px;
     cursor: pointer;
@@ -393,7 +393,7 @@ p {
 
 .preview-text-body {
     padding: 0.85rem 1rem;
-    max-height: 610px;
+    max-height: auto;
     overflow: auto;
     text-align: left;
 }
@@ -572,7 +572,7 @@ p {
 .modal-text {
     margin: 0;
     width: 100%;
-    max-height: min(70vh, 750px);
+    max-height: min(70vh, auto);
     overflow: auto;
     font-family: var(--font-mono);
     font-size: 0.85rem;
