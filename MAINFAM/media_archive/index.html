@@ -55,7 +55,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="section">
                     <h2>Emblems</h2>
                     <ul class="file-list">
@@ -71,7 +71,7 @@
                     </ul>
                 </div>
 
-            <!-- ========== END LIST VIEW ========== -->
+                <!-- ========== END LIST VIEW ========== -->
             </div>
 
             <!-- ========== GALLERY VIEW (hidden by default) ========== -->
@@ -90,7 +90,7 @@
             <!-- Interactive prompt -->
             <div class="input-line" id="input-line">
                 <span class="prompt">0p3rat0r@212613</span><span class="separator">:</span><span class="path">~/core/MAINFAM/media_archive</span><span class="dollar">$</span>
-                <input type="text" id="cmd-input" autocomplete="off" spellcheck="false" autofocus>
+                <input type="text" id="cmd-input" autocomplete="off" spellcheck="false">
             </div>
         </div>
     </div>
@@ -127,12 +127,24 @@
         const modalTitle = document.getElementById('modal-title');
         const modalClose = document.getElementById('modal-close');
 
-        // Focus handling
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('a') || e.target.closest('.preview-frame') || e.target.closest('.modal')) return;
-            input.focus();
+        // Focus handling — only focus when the user intentionally taps the prompt/input line.
+        // Prevents the keyboard from opening on every tap on mobile/tablet.
+        const inputLine = document.getElementById('input-line');
+        if (inputLine) {
+            inputLine.addEventListener('click', (e) => {
+                if (e.target.closest('a')) return;
+                input.focus();
+            });
+        }
+
+        // Autofocus only on non-touch / fine-pointer devices so mobile doesn't
+        // immediately pop the keyboard on page load.
+        window.addEventListener('load', () => {
+            const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+            if (!isCoarse) {
+                input.focus();
+            }
         });
-        window.addEventListener('load', () => input.focus());
 
         // ---------- Modal ----------
         function openModal(src, name, type = 'image') {
@@ -222,21 +234,21 @@
 
             if (type === 'image') {
                 frame.innerHTML = `
-                    <div class="preview-header">preview: ${name}</div>
-                    <div class="preview-body">
-                        <img src="${src}" alt="${name}" loading="lazy">
-                    </div>
-                `;
+                        <div class="preview-header">preview: ${name}</div>
+                        <div class="preview-body">
+                            <img src="${src}" alt="${name}" loading="lazy">
+                        </div>
+                    `;
                 item.appendChild(frame);
                 const img = frame.querySelector('img');
                 img.addEventListener('click', () => openModal(src, name, 'image'));
             } else if (type === 'text') {
                 frame.innerHTML = `
-                    <div class="preview-header">preview: ${name}</div>
-                    <div class="preview-body preview-text-body">
-                        <pre class="preview-text">Loading…</pre>
-                    </div>
-                `;
+                        <div class="preview-header">preview: ${name}</div>
+                        <div class="preview-body preview-text-body">
+                            <pre class="preview-text">Loading…</pre>
+                        </div>
+                    `;
                 item.appendChild(frame);
                 const pre = frame.querySelector('.preview-text');
 
@@ -274,18 +286,18 @@
 
                 if (type === 'image') {
                     card.innerHTML = `
-                        <div class="gallery-thumb">
-                            <img src="${src}" alt="${name}" loading="lazy">
-                        </div>
-                        <div class="gallery-label">${name}</div>
-                    `;
+                            <div class="gallery-thumb">
+                                <img src="${src}" alt="${name}" loading="lazy">
+                            </div>
+                            <div class="gallery-label">${name}</div>
+                        `;
                 } else {
                     card.innerHTML = `
-                        <div class="gallery-thumb gallery-thumb-text">
-                            <span class="text-badge">TXT</span>
-                        </div>
-                        <div class="gallery-label">${name}</div>
-                    `;
+                            <div class="gallery-thumb gallery-thumb-text">
+                                <span class="text-badge">TXT</span>
+                            </div>
+                            <div class="gallery-label">${name}</div>
+                        `;
                 }
 
                 card.addEventListener('click', () => openModal(src, name, type));
@@ -313,8 +325,8 @@
         // ---------- Commands ----------
         const commands = {
             help: () => `Available commands:
-  help, ?, clear, cls, ls, list, pwd, whoami, date, echo
-  gallery, neofetch, sudo, cat, exit, history`,
+      help, ?, clear, cls, ls, list, pwd, whoami, date, echo
+      gallery, neofetch, sudo, cat, exit, history`,
 
             '?': () => commands.help(),
 
@@ -327,9 +339,9 @@
             ls: () => {
                 showList();
                 return `media_archive/
-  Notes/
-  Emblems/
-  (click a filename to preview · click content for full view · type "gallery")`;
+      Notes/
+      Emblems/
+      (click a filename to preview · click content for full view · type "gallery")`;
             },
             list: () => commands.ls(),
 
@@ -389,11 +401,11 @@ Memory: [OVERFLOW]
             if (!trimmed) return;
 
             appendLine(`
-                <div class="line cmd-echo">
-                    <span class="prompt">0p3rat0r@212613</span><span class="separator">:</span><span class="path">~/core/MAINFAM/media_archive</span><span class="dollar">$</span>
-                    <span class="command">${escapeHtml(trimmed)}</span>
-                </div>
-            `);
+                    <div class="line cmd-echo">
+                        <span class="prompt">0p3rat0r@212613</span><span class="separator">:</span><span class="path">~/core/MAINFAM/media_archive</span><span class="dollar">$</span>
+                        <span class="command">${escapeHtml(trimmed)}</span>
+                    </div>
+                `);
 
             const parts = trimmed.split(/\s+/);
             const cmd = parts[0].toLowerCase();
