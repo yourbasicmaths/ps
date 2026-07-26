@@ -710,6 +710,15 @@ a {
     background: var(--text-muted);
 }
 
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
 /* ---------- Mobile ---------- */
 
 @media (max-width: 640px) {
