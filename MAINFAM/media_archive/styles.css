@@ -273,6 +273,7 @@ h1 {
     font-size: 0.85rem;
     margin-bottom: 1.8rem;
     font-weight: 400;
+    max-width: none;
 }
 
 h2 {
