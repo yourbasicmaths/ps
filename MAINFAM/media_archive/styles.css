@@ -191,8 +191,8 @@ body {
 }
 
     #cmd-input::selection {
-    background: rgba(0, 255, 162, 0.25);
-}
+        background: rgba(0, 255, 162, 0.25);
+    }
 
 /* Allow normal text selection throughout the archive */
 .terminal-body,
@@ -447,31 +447,31 @@ p {
 }
 
     .preview-text:hover {
-        color: var(--text-primary);
+        color: var(--text-secondary);
     }
 
-/* ---------- dark scrollbar for preview text ---------- */
+    /* ---------- dark scrollbar for preview text ---------- */
 
-.preview-text-body::-webkit-scrollbar,
-.preview-text::-webkit-scrollbar {
-    width: 8px;
-}
+    .preview-text-body::-webkit-scrollbar,
+    .preview-text::-webkit-scrollbar {
+        width: 8px;
+    }
 
-.preview-text-body::-webkit-scrollbar-track,
-.preview-text::-webkit-scrollbar-track {
-    background: transparent;
-}
+    .preview-text-body::-webkit-scrollbar-track,
+    .preview-text::-webkit-scrollbar-track {
+        background: transparent;
+    }
 
-.preview-text-body::-webkit-scrollbar-thumb,
-.preview-text::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 4px;
-}
+    .preview-text-body::-webkit-scrollbar-thumb,
+    .preview-text::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 4px;
+    }
 
-.preview-text-body::-webkit-scrollbar-thumb:hover,
-.preview-text::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
-}
+        .preview-text-body::-webkit-scrollbar-thumb:hover,
+        .preview-text::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
 
 /* ---------- Gallery View ---------- */
 
@@ -654,23 +654,23 @@ p {
     padding: 0.25rem;
 }
 
-/* Dark scrollbar for modal text */
-.modal-text::-webkit-scrollbar {
-    width: 8px;
-}
+    /* Dark scrollbar for modal text */
+    .modal-text::-webkit-scrollbar {
+        width: 8px;
+    }
 
-.modal-text::-webkit-scrollbar-track {
-    background: transparent;
-}
+    .modal-text::-webkit-scrollbar-track {
+        background: transparent;
+    }
 
-.modal-text::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 4px;
-}
+    .modal-text::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 4px;
+    }
 
-.modal-text::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
-}
+        .modal-text::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
 
 .modal-body::-webkit-scrollbar {
     width: 8px;
@@ -685,9 +685,9 @@ p {
     border-radius: 4px;
 }
 
-.modal-body::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
-}
+    .modal-body::-webkit-scrollbar-thumb:hover {
+        background: var(--text-muted);
+    }
 
 .gallery-thumb-text {
     background: #0a0e14;
