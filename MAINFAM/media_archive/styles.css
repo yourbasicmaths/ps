@@ -292,7 +292,7 @@ h2 {
 p {
     color: var(--text-secondary);
     margin-bottom: 0.85rem;
-    max-width: 62ch;
+    max-width: 64ch;
 }
 
 /* ---------- File list ---------- */
