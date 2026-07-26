@@ -426,7 +426,7 @@ p {
 
 .preview-text-body {
     padding: 0.85rem 1rem;
-    max-height: auto;
+    max-height: 720px;
     overflow: auto;
     text-align: left;
 }
