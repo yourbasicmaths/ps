@@ -164,14 +164,14 @@ body {
     transition: background 0.12s ease;
 }
 
-.input-line:hover,
-.input-line:focus-within {
-    background: rgba(0, 255, 162, 0.04);
-}
+    .input-line:hover,
+    .input-line:focus-within {
+        background: rgba(0, 255, 162, 0.04);
+    }
 
-.input-line .dollar {
-    margin-right: 0.4rem;
-}
+    .input-line .dollar {
+        margin-right: 0.4rem;
+    }
 
 #cmd-input {
     flex: 1;
@@ -180,7 +180,7 @@ body {
     outline: none;
     color: var(--text-primary);
     font-family: var(--font-mono);
-    font-size: 16px;          /* >=16px prevents iOS zoom on focus */
+    font-size: 16px; /* >=16px prevents iOS zoom on focus */
     font-weight: 400;
     caret-color: var(--accent-green);
     padding: 0;
@@ -190,7 +190,11 @@ body {
     user-select: text;
 }
 
-#cmd-input/* Allow normal text selection throughout the archive */
+    #cmd-input::selection {
+    background: rgba(0, 255, 162, 0.25);
+}
+
+/* Allow normal text selection throughout the archive */
 .terminal-body,
 .terminal-body * {
     -webkit-user-select: text;
@@ -273,7 +277,6 @@ h1 {
     font-size: 0.85rem;
     margin-bottom: 1.8rem;
     font-weight: 400;
-    max-width: none;
 }
 
 h2 {
@@ -612,7 +615,7 @@ p {
 .modal-text {
     margin: 0;
     width: 100%;
-    max-height: min(70vh, auto);
+    max-height: min(70vh, 720px);
     overflow: auto;
     font-family: var(--font-mono);
     font-size: 0.85rem;
@@ -622,6 +625,41 @@ p {
     word-break: break-word;
     text-align: left;
     padding: 0.25rem;
+}
+
+/* Dark scrollbar for modal text (matches terminal) */
+.modal-text::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-text::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-text::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+.modal-text::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
 }
 
 .gallery-thumb-text {
