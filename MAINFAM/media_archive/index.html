@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>media_archive // Terminal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="terminal-window">
+        <!-- Title bar -->
+        <div class="title-bar">
+            <div class="traffic-lights">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+            </div>
+            <div class="title">MAINFAM/media_archive — bash — 120x40</div>
+            <div class="title-spacer"></div>
+        </div>
+
+        <!-- Terminal content -->
+        <div class="terminal-body" id="terminal-body">
+            <div class="line">
+                <span class="prompt">0p3rat0r@212613</span><span class="separator">:</span><span class="path">~/core/MAINFAM/media_archive</span><span class="dollar">$</span>
+                <span class="command">ls -la --color=auto</span>
+            </div>
+
+            <div class="output-block">
+                <p class="meta">total [OVERFLOW]</p>
+                <p class="dir-entry">drwxr-xr-x  11 0p3rat0r  MAINFAM   134G Jul 25 14:00 <span class="dir">.</span></p>
+                <p class="dir-entry">drwxr-xr-x   5 System    TOWER     16P Jun 27 13:14 <span class="dir">..</span></p>
+            </div>
+
+            <h1>MAINFAM/media_archive</h1>
+            <p class="subtitle">// MAIN FAM archive of digital memorabilia &amp; identity keepsakes</p>
+
+            <!-- ========== LIST VIEW ========== -->
+            <div id="list-view">
+                <div class="section">
+                    <h2>Emblems</h2>
+                    <ul class="file-list">
+                        <li class="file-item" data-type="image" data-src="assets/MAINFAM_color_emblem.svg" data-name="MAINFAM_color_emblem.svg">
+                            <div class="file-row">
+                                <a href="#" class="filename">2026-07-25_MAINFAM_color_emblem.svg</a>
+                                <div class="file-actions">
+                                    <a href="assets/MAINFAM_color_emblem.svg" download="MAINFAM_color_emblem.svg" class="download-link">[download]</a>
+                                    <span class="meta-right">811KB · 25 Jul</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>Notes</h2>
+                    <ul class="file-list">
+                        <li class="file-item" data-type="text" data-src="assets/README.txt" data-name="README.txt">
+                            <div class="file-row">
+                                <a href="#" class="filename">2026-07-25_README.md</a>
+                                <div class="file-actions">
+                                    <a href="assets/README.txt" download="README.txt" class="download-link">[download]</a>
+                                    <span class="meta-right">1.2K · 25 Jul</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>2026</h2>
+                    <ul class="file-list">
+                        <li>
+                            <a href="#" class="filename">2026-07-22_arg-timing-notes.md</a>
+                            <span class="meta-right">4.1K · 22 Jul</span>
+                        </li>
+                        <li>
+                            <a href="#" class="filename">2026-07-18_pixel-steganography.md</a>
+                            <span class="meta-right">2.8K · 18 Jul</span>
+                        </li>
+                        <li>
+                            <a href="#" class="filename">2026-07-10_nms-skyscraper.md</a>
+                            <span class="meta-right">6.2K · 10 Jul</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ========== GALLERY VIEW (hidden by default) ========== -->
+            <div id="gallery-view" class="hidden">
+                <div class="gallery-header">
+                    <span class="gallery-title">gallery → emblems</span>
+                    <span class="gallery-hint">click item for full view · type "ls" to return</span>
+                </div>
+                <div class="gallery-grid" id="gallery-grid">
+                </div>
+            </div>
+
+            <!-- Dynamic command history -->
+            <div id="history"></div>
+
+            <!-- Interactive prompt -->
+            <div class="input-line" id="input-line">
+                <span class="prompt">0p3rat0r@212613</span><span class="separator">:</span><span class="path">~/core/MAINFAM/media_archive</span><span class="dollar">$</span>
+                <input type="text" id="cmd-input" autocomplete="off" spellcheck="false" autofocus>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="image-modal" class="modal hidden">
+        <div class="modal-window">
+            <div class="title-bar">
+                <div class="traffic-lights">
+                    <span class="dot red" id="modal-close" title="Close"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="title" id="modal-title">preview</div>
+                <div class="title-spacer"></div>
+            </div>
+            <div class="modal-body">
+                <img id="modal-img" src="" alt="" class="hidden">
+                <pre id="modal-text" class="modal-text hidden"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById('cmd-input');
+        const history = document.getElementById('history');
+        const terminalBody = document.getElementById('terminal-body');
+        const listView = document.getElementById('list-view');
+        const galleryView = document.getElementById('gallery-view');
+        const galleryGrid = document.getElementById('gallery-grid');
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalText = document.getElementById('modal-text');
+        const modalTitle = document.getElementById('modal-title');
+        const modalClose = document.getElementById('modal-close');
+
+        // Focus handling
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('a') || e.target.closest('.preview-frame') || e.target.closest('.modal')) return;
+            input.focus();
+        });
+        window.addEventListener('load', () => input.focus());
+
+        // ---------- Modal ----------
+        function openModal(src, name, type = 'image') {
+            modalTitle.textContent = name;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            // Reset both
+            modalImg.classList.add('hidden');
+            modalText.classList.add('hidden');
+            modalImg.src = '';
+            modalText.textContent = '';
+
+            if (type === 'image') {
+                modalImg.src = src;
+                modalImg.alt = name;
+                modalImg.classList.remove('hidden');
+            } else if (type === 'text') {
+                modalText.textContent = 'Loading…';
+                modalText.classList.remove('hidden');
+                fetch(src)
+                    .then(r => {
+                        if (!r.ok) throw new Error('Failed to load');
+                        return r.text();
+                    })
+                    .then(text => {
+                        modalText.textContent = text;
+                    })
+                    .catch(() => {
+                        modalText.textContent = '// failed to load file\n// check that the path exists in assets/';
+                    });
+            }
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            modalImg.src = '';
+            modalText.textContent = '';
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // ---------- List Preview (image + text) ----------
+        document.querySelectorAll('.file-item').forEach(item => {
+            const filenameLink = item.querySelector('.filename');
+            if (!filenameLink) return;
+            filenameLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                togglePreview(item);
+            });
+        });
+
+        function togglePreview(item) {
+            document.querySelectorAll('.file-item.open').forEach(openItem => {
+                if (openItem !== item) {
+                    openItem.classList.remove('open');
+                    const oldPreview = openItem.querySelector('.preview-frame');
+                    if (oldPreview) oldPreview.remove();
+                }
+            });
+
+            if (item.classList.contains('open')) {
+                item.classList.remove('open');
+                const preview = item.querySelector('.preview-frame');
+                if (preview) preview.remove();
+                return;
+            }
+
+            item.classList.add('open');
+            const src = item.dataset.src;
+            const name = item.dataset.name || 'file';
+            const type = item.dataset.type || 'image';
+
+            const frame = document.createElement('div');
+            frame.className = 'preview-frame';
+
+            if (type === 'image') {
+                frame.innerHTML = `
+                    <div class="preview-header">preview: ${name}</div>
+                    <div class="preview-body">
+                        <img src="${src}" alt="${name}" loading="lazy">
+                    </div>
+                `;
+                item.appendChild(frame);
+                const img = frame.querySelector('img');
+                img.addEventListener('click', () => openModal(src, name, 'image'));
+            } else if (type === 'text') {
+                frame.innerHTML = `
+                    <div class="preview-header">preview: ${name}</div>
+                    <div class="preview-body preview-text-body">
+                        <pre class="preview-text">Loading…</pre>
+                    </div>
+                `;
+                item.appendChild(frame);
+                const pre = frame.querySelector('.preview-text');
+
+                fetch(src)
+                    .then(r => {
+                        if (!r.ok) throw new Error('Failed');
+                        return r.text();
+                    })
+                    .then(text => {
+                        pre.textContent = text;
+                        // Click the text block to open full modal
+                        pre.style.cursor = 'pointer';
+                        pre.addEventListener('click', () => openModal(src, name, 'text'));
+                    })
+                    .catch(() => {
+                        pre.textContent = '// failed to load\n// check path in assets/';
+                    });
+            }
+
+            setTimeout(() => {
+                frame.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 50);
+        }
+
+        // ---------- Gallery Mode ----------
+        function buildGallery() {
+            galleryGrid.innerHTML = '';
+            document.querySelectorAll('.file-item[data-type="image"], .file-item[data-type="text"]').forEach(item => {
+                const src = item.dataset.src;
+                const name = item.dataset.name || 'file';
+                const type = item.dataset.type || 'image';
+
+                const card = document.createElement('div');
+                card.className = 'gallery-card';
+
+                if (type === 'image') {
+                    card.innerHTML = `
+                        <div class="gallery-thumb">
+                            <img src="${src}" alt="${name}" loading="lazy">
+                        </div>
+                        <div class="gallery-label">${name}</div>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <div class="gallery-thumb gallery-thumb-text">
+                            <span class="text-badge">TXT</span>
+                        </div>
+                        <div class="gallery-label">${name}</div>
+                    `;
+                }
+
+                card.addEventListener('click', () => openModal(src, name, type));
+                galleryGrid.appendChild(card);
+            });
+        }
+
+        function showGallery() {
+            buildGallery();
+            listView.classList.add('hidden');
+            galleryView.classList.remove('hidden');
+            appendLine(`<pre class="cmd-output">// switched to gallery view — type "ls" or "list" to return</pre>`);
+        }
+
+        function showList() {
+            galleryView.classList.add('hidden');
+            listView.classList.remove('hidden');
+            document.querySelectorAll('.file-item.open').forEach(item => {
+                item.classList.remove('open');
+                const preview = item.querySelector('.preview-frame');
+                if (preview) preview.remove();
+            });
+        }
+
+        // ---------- Commands ----------
+        const commands = {
+            help: () => `Available commands:
+  help, ?, clear, cls, ls, list, pwd, whoami, date, echo
+  gallery, neofetch, sudo, cat, exit, history`,
+
+            '?': () => commands.help(),
+
+            clear: () => {
+                history.innerHTML = '';
+                return null;
+            },
+            cls: () => commands.clear(),
+
+            ls: () => {
+                showList();
+                return `media_archive/
+  Emblems/
+  2026/
+  (click a filename to preview · click content for full view · type "gallery")`;
+            },
+            list: () => commands.ls(),
+
+            gallery: () => {
+                showGallery();
+                return null;
+            },
+
+            pwd: () => '~/core/MAINFAM/media_archive',
+            whoami: () => '0p3rat0r',
+            date: () => new Date().toString(),
+            echo: (args) => args.join(' ') || '',
+
+            neofetch: () => `
+0p3rat0r@212613
+-------------
+OS: [REDACTED] media_archive 2026.7
+Host: Terminal Emulator
+Kernel: IBM Plex Mono
+Shell: bash 5.2
+Theme: Dark Modern Console
+Uptime: ${Math.floor(Math.random() * 40) + 5} days
+Memory: [OVERFLOW]
+`,
+
+            sudo: (args) => {
+                if (args[0] === 'rm' && args.includes('-rf')) {
+                    return `CONNECTION DETECTED; ACCESS DENIED.`;
+                }
+                return `Expanded firewall precautions due to recent brute forcing.`;
+            },
+
+            cat: (args) => {
+                if (!args.length) return 'cat: missing file operand';
+                return `cat: ${args[0]}: No such file or directory`;
+            },
+
+            exit: () => `media_archive parent directories restricted; exit denied.`,
+
+            history: () => {
+                const lines = history.querySelectorAll('.cmd-echo');
+                if (!lines.length) return 'No commands in history yet.';
+                return Array.from(lines).map((el, i) => `  ${i + 1}  ${el.textContent}`).join('\n');
+            }
+        };
+
+        function appendLine(html) {
+            const div = document.createElement('div');
+            div.className = 'history-block';
+            div.innerHTML = html;
+            history.appendChild(div);
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+
+        function processCommand(raw) {
+            const trimmed = raw.trim();
+            if (!trimmed) return;
+
+            appendLine(`
+                <div class="line cmd-echo">
+                    <span class="prompt">0p3rat0r@212613</span><span class="separator">:</span><span class="path">~/core/MAINFAM/media_archive</span><span class="dollar">$</span>
+                    <span class="command">${escapeHtml(trimmed)}</span>
+                </div>
+            `);
+
+            const parts = trimmed.split(/\s+/);
+            const cmd = parts[0].toLowerCase();
+            const args = parts.slice(1);
+
+            let result;
+            if (commands[cmd]) {
+                result = commands[cmd](args);
+            } else {
+                result = `bash: ${cmd}: command not found\nType "help" for available commands.`;
+            }
+
+            if (result !== null && result !== undefined) {
+                appendLine(`<pre class="cmd-output">${escapeHtml(result)}</pre>`);
+            }
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const value = input.value;
+                input.value = '';
+                processCommand(value);
+            }
+        });
+
+        // Welcome message
+        setTimeout(() => {
+            appendLine(`<pre class="cmd-output welcome">// click a filename to preview · click content for full view · type "gallery" · type "help"</pre>`);
+        }, 500);
+    </script>
+</body>
+</html>
