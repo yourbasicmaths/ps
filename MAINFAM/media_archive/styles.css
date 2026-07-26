@@ -691,6 +691,25 @@ a {
         background: var(--text-muted);
     }
 
+/* ---------- Modal Scrollbar ---------- */
+
+.modal-text::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-text::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-text::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+.modal-text::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
 /* ---------- Mobile ---------- */
 
 @media (max-width: 640px) {
