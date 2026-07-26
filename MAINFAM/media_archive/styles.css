@@ -450,6 +450,29 @@ p {
         color: var(--text-primary);
     }
 
+/* ---------- dark scrollbar for preview text ---------- */
+
+.preview-text-body::-webkit-scrollbar,
+.preview-text::-webkit-scrollbar {
+    width: 8px;
+}
+
+.preview-text-body::-webkit-scrollbar-track,
+.preview-text::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.preview-text-body::-webkit-scrollbar-thumb,
+.preview-text::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+.preview-text-body::-webkit-scrollbar-thumb:hover,
+.preview-text::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
 /* ---------- Gallery View ---------- */
 
 .hidden {
@@ -631,7 +654,7 @@ p {
     padding: 0.25rem;
 }
 
-/* Dark scrollbar for modal text (matches terminal) */
+/* Dark scrollbar for modal text */
 .modal-text::-webkit-scrollbar {
     width: 8px;
 }
