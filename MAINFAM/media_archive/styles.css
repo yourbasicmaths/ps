@@ -392,7 +392,7 @@ p {
     white-space: nowrap;
 }
 
-/* ---------- Preview Frame (terminal style) ---------- */
+/* ---------- Preview Frame ---------- */
 
 .preview-frame {
     margin: 0.6rem 0 0.75rem 0;
@@ -513,7 +513,6 @@ p {
 .gallery-content {
 
 }
-
 
 .gallery-section {
     margin-bottom: 2.2rem;
@@ -683,6 +682,27 @@ p {
 
 .modal-window .title {
     font-size: 0.8rem;
+}
+
+.modal-actions {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 52px;
+    justify-content: flex-end;
+}
+
+.modal-download-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 400;
+    transition: color 0.12s ease;
+    white-space: nowrap;
+}
+
+.modal-download-link:hover {
+    color: var(--accent-green);
 }
 
 .modal-body {
