@@ -6,15 +6,13 @@
     --border-subtle: #21262d;
     --text-primary: #e6edf3;
     --text-secondary: #8b949e;
+    --text-tertiary: #5968bb;
     --text-muted: #6e7681;
     --accent-blue: #c8d3e1;
     --accent-blue-hover: #32ff8d;
     --accent-green: #00ffa2;
     --accent-pink: #de145f;
-    --accent-purple: #ffc638;
-    --accent-orange: #d29922;
-    --accent-red: #f85149;
-    --accent-yellow: #e3b341;
+    --accent-yellow: #ffc638;
     --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
@@ -48,7 +46,7 @@ body {
 
 .terminal-window {
     width: 100%;
-    max-width: 820px;
+    max-width: 720px;
     background: var(--bg-panel);
     border: 1px solid var(--border);
     border-radius: 10px;
@@ -128,7 +126,7 @@ body {
 
 .prompt {
     color: var(--accent-green);
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .separator {
@@ -240,7 +238,7 @@ body {
 .output-block {
     margin-bottom: 1.6rem;
     color: var(--text-secondary);
-    font-size: 0.88rem;
+    font-size: 0.72rem;
 }
 
     .output-block .meta {
@@ -249,18 +247,19 @@ body {
 
 .dir-entry {
     margin: 0.15rem 0;
+    font-weight: 300;
 }
 
 .dir {
     color: var(--accent-blue);
-    font-weight: 500;
+    font-weight: 600;
 }
 
 /* ---------- Typography ---------- */
 
 h1 {
     font-size: 1.55rem;
-    font-weight: 400;
+    font-weight: 600;
     color: var(--text-primary);
     margin: 0.4rem 0 0.35rem;
     letter-spacing: -0.01em;
@@ -268,7 +267,7 @@ h1 {
 
     h1::before {
         content: "# ";
-        color: var(--accent-purple);
+        color: var(--accent-yellow);
         font-weight: 400;
     }
 
@@ -291,6 +290,20 @@ h2 {
         content: "## ";
         color: var(--text-muted);
         font-weight: 500;
+    }
+
+h3 {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text-tertiary);
+    margin: 1rem 0 0;
+    letter-spacing: 0.01em;
+}
+
+    h3::before {
+        content: "### ";
+        color: var(--text-tertiary);
+        font-weight: 400;
     }
 
 p {
@@ -340,8 +353,20 @@ p {
 
     .filename:hover {
         color: var(--accent-blue-hover);
-        text-decoration: underline;
         text-underline-offset: 3px;
+    }
+
+    .filename::before {
+        content: "-----> ";
+        color: var(--text-tertiary);
+        font-weight: 400;        
+    }
+
+    .filename:hover::before {
+        content: "-----> ";
+        color: var(--accent-blue-hover);
+        text-decoration: none;
+        font-weight: 400;
     }
 
 .file-actions {
@@ -447,31 +472,9 @@ p {
 }
 
     .preview-text:hover {
-        color: var(--text-secondary);
+        color: var(--text-primary);
     }
 
-    /* ---------- dark scrollbar for preview text ---------- */
-
-    .preview-text-body::-webkit-scrollbar,
-    .preview-text::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    .preview-text-body::-webkit-scrollbar-track,
-    .preview-text::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    .preview-text-body::-webkit-scrollbar-thumb,
-    .preview-text::-webkit-scrollbar-thumb {
-        background: var(--border);
-        border-radius: 4px;
-    }
-
-        .preview-text-body::-webkit-scrollbar-thumb:hover,
-        .preview-text::-webkit-scrollbar-thumb:hover {
-            background: var(--text-muted);
-        }
 
 /* ---------- Gallery View ---------- */
 
@@ -654,40 +657,7 @@ p {
     padding: 0.25rem;
 }
 
-    /* Dark scrollbar for modal text */
-    .modal-text::-webkit-scrollbar {
-        width: 8px;
-    }
 
-    .modal-text::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    .modal-text::-webkit-scrollbar-thumb {
-        background: var(--border);
-        border-radius: 4px;
-    }
-
-        .modal-text::-webkit-scrollbar-thumb:hover {
-            background: var(--text-muted);
-        }
-
-.modal-body::-webkit-scrollbar {
-    width: 8px;
-}
-
-.modal-body::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.modal-body::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 4px;
-}
-
-    .modal-body::-webkit-scrollbar-thumb:hover {
-        background: var(--text-muted);
-    }
 
 .gallery-thumb-text {
     background: #0a0e14;
@@ -699,7 +669,7 @@ p {
 .text-badge {
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--accent-purple);
+    color: var(--accent-yellow);
     letter-spacing: 0.06em;
     border: 1px solid var(--border);
     padding: 0.35rem 0.65rem;
@@ -738,24 +708,41 @@ a {
     color: var(--text-primary);
 }
 
-/* ---------- Scrollbar ---------- */
 
-.terminal-body::-webkit-scrollbar {
+/* ---------- Scrollbar (shared) ---------- */
+
+.terminal-body::-webkit-scrollbar,
+.modal-body::-webkit-scrollbar,
+.modal-text::-webkit-scrollbar,
+.preview-text-body::-webkit-scrollbar,
+.preview-text::-webkit-scrollbar {
     width: 8px;
 }
 
-.terminal-body::-webkit-scrollbar-track {
+.terminal-body::-webkit-scrollbar-track,
+.modal-body::-webkit-scrollbar-track,
+.modal-text::-webkit-scrollbar-track,
+.preview-text-body::-webkit-scrollbar-track,
+.preview-text::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.terminal-body::-webkit-scrollbar-thumb {
+.terminal-body::-webkit-scrollbar-thumb,
+.modal-body::-webkit-scrollbar-thumb,
+.modal-text::-webkit-scrollbar-thumb,
+.preview-text-body::-webkit-scrollbar-thumb,
+.preview-text::-webkit-scrollbar-thumb {
     background: var(--border);
     border-radius: 4px;
 }
 
-    .terminal-body::-webkit-scrollbar-thumb:hover {
-        background: var(--text-muted);
-    }
+.terminal-body::-webkit-scrollbar-thumb:hover,
+.modal-body::-webkit-scrollbar-thumb:hover,
+.modal-text::-webkit-scrollbar-thumb:hover,
+.preview-text-body::-webkit-scrollbar-thumb:hover,
+.preview-text::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
 
 /* ---------- Mobile ---------- */
 
