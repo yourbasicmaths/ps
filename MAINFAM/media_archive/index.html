@@ -42,7 +42,7 @@
             </p>
 
             <!-- ========== LIST VIEW ========== -->
-
+            
             <div id="list-view">
 
                 <div class="section">
@@ -163,7 +163,9 @@
                     <span class="dot green"></span>
                 </div>
                 <div class="title" id="modal-title">preview</div>
-                <div class="title-spacer"></div>
+                <div class="modal-actions">
+                    <a href="#" id="modal-download" class="modal-download-link" download>[download]</a>
+                </div>
             </div>
             <div class="modal-body" id="modal-body">
                 <img id="modal-img" src="" alt="" class="hidden">
@@ -185,6 +187,7 @@
         const modalText = document.getElementById('modal-text');
         const modalTitle = document.getElementById('modal-title');
         const modalClose = document.getElementById('modal-close');
+        const modalDownload = document.getElementById('modal-download');
 
         const inputLine = document.getElementById('input-line');
         if (inputLine) {
@@ -232,6 +235,10 @@
             modalTitle.textContent = name;
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+
+            modalDownload.href = src;
+            modalDownload.setAttribute('download', name);
+            modalDownload.style.display = '';
 
             modalImg.classList.add('hidden');
             modalText.classList.add('hidden');
@@ -286,8 +293,11 @@
             }
         });
 
-        // ---------- List Preview (image + text) ----------
+        // ---------- List Preview ----------
+
         listView.addEventListener('click', (e) => {
+            if (e.target.closest('.download-link')) return;
+
             const filenameLink = e.target.closest('.filename');
             if (!filenameLink) return;
             e.preventDefault();
