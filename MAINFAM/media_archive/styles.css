@@ -357,13 +357,13 @@ p {
     }
 
     .filename::before {
-        content: "-----> ";
+        content: "--> ";
         color: var(--text-tertiary);
         font-weight: 400;        
     }
 
     .filename:hover::before {
-        content: "-----> ";
+        content: "--> ";
         color: var(--accent-blue-hover);
         text-decoration: none;
         font-weight: 400;
