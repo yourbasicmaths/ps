@@ -1,4 +1,4 @@
-# MAINFAM media kit
+# MAIN FAM media kit
 ### Welcome to the main fam digital memorabilia and identity media archives
 
 The `MAIN FAM 0P3RAT0R C0LLECT1VE` is a formally organized No Man's Sky civilization birthed during the events of Project Skyscraper.
