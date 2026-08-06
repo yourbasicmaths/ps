@@ -127,6 +127,26 @@
                             data-mod="27 Jul"
                             data-bg="light"></li>
                     </ul>
+
+                    <!-- .AI FILES -->
+                    <h3>.ai [Illustrator working file]</h3>
+                    <ul class="file-list">
+                        <li class="file-item"
+                            data-type="image"
+                            data-src="assets/MAINFAM_color_emblem.ai"
+                            data-name="MAINFAM_color_emblem.ai"
+                            data-date="2026-08-01"
+                            data-size="2.01M"
+                            data-mod="01 Aug"></li>
+
+                        <li class="file-item"
+                            data-type="image"
+                            data-src="assets/MAINFAM_collection.ai"
+                            data-name="MAINFAM_collection.ai"
+                            data-date="2026-08-01"
+                            data-size="5.33"
+                            data-mod="01 Aug"></li>
+                    </ul>
                 </div>
 
                 <!-- ========== END LIST VIEW ========== -->
@@ -490,7 +510,7 @@
             ls: () => {
                 showList();
                 return `media_archive/
-  notes/
+  documentation/
   full emblem/
   (click a filename to preview · click content for full view · type "gallery")`;
             },
@@ -507,6 +527,8 @@
             date: () => new Date().toString(),
             echo: (args) => args.join(' ') || '',
 
+            redacted: () => 'WARNING: accessing [REDACTED] files increases risk of MAIN FAM dissonance. To continue, enter "view_dustid"',
+            view_dustid: () => 'DustID: DRAFT_Emblem.svg // DRAFT_Emblem.png // DRAFT_emblem.ai ; is not currently available. Check again soon.',
             neofetch: () => `
 0P3RAT0R@212613
 -------------
