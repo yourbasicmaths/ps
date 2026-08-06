@@ -132,7 +132,7 @@
                     <h3>.ai [Illustrator working file]</h3>
                     <ul class="file-list">
                         <li class="file-item"
-                            data-type="image"
+                            data-type="working"
                             data-src="assets/MAINFAM_color_emblem.ai"
                             data-name="MAINFAM_color_emblem.ai"
                             data-date="2026-08-01"
@@ -140,7 +140,7 @@
                             data-mod="01 Aug"></li>
 
                         <li class="file-item"
-                            data-type="image"
+                            data-type="working"
                             data-src="assets/MAINFAM_collection.ai"
                             data-name="MAINFAM_collection.ai"
                             data-date="2026-08-01"
@@ -406,6 +406,13 @@
                 card.innerHTML = `
                     <div class="gallery-thumb ${bgClass}">
                         <img src="${escapeHtml(src)}" alt="${escapeHtml(name)}" loading="lazy">
+                    </div>
+                    <div class="gallery-label">${escapeHtml(name)}</div>
+                `;
+            } else if (type === 'working') {
+                card.innerHTML = `
+                    <div class="gallery-thumb gallery-thumb-text">
+                        <span class="text-badge">WORKING FILE</span>
                     </div>
                     <div class="gallery-label">${escapeHtml(name)}</div>
                 `;
